@@ -1,4 +1,7 @@
 from dataclasses import dataclass
+from typing import List
+import csv
+
 
 @dataclass
 class Tweet:
@@ -20,10 +23,21 @@ class Tweet:
     id: int
 
 
-def process(f: fileObject) -> List[Tweet]:
+def process(file: str) -> List[Tweet]:
     """Parse CSV file into a list of Tweets for further analysis.
-    
+    Also formats out '\n' and replaces '$q$' with single quotes.
+
+    Our file address is twitter_sentiment_data.csv
     Preconditions:
-        - f is not None
+        - file is not None
     """
-    ...
+    tweets_so_far = []
+    with open(file, encoding="utf8") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        next(csv_reader)
+        for row in csv_reader:
+            edited_text = row[1].replace('$q$', "'")
+            edited_text = edited_text.replace('\n', '')
+            tweet = Tweet(sentiment=int(row[0]), content=edited_text, id=int(row[2]))
+            tweets_so_far.append(tweet)
+    return tweets_so_far
