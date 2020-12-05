@@ -9,9 +9,9 @@ import stats_analysis
 if __name__ == "__main__":
 
     # Data formatting
-    f = open('dataset.csv', 'r')
+    FILEPATH = 'twitter_sentiment_data.csv'
 
-    dataset = data_formatting.process(f)
+    dataset = data_formatting.process(FILEPATH)
 
     # VADER sentiment analysis
     vader_analysis.analyze(dataset)
