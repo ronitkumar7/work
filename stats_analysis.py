@@ -2,6 +2,7 @@
 from data_formatting import Tweet
 from typing import List, Dict
 from vader_analysis import range_of_compound_values, vader_values
+import statistics
 
 
 def frequency(tweets: List[Tweet]) -> Dict[str, int]:
@@ -22,3 +23,24 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
             freq_neu += 1
     return {'positive': freq_pos, 'neutral': freq_neu, 'negative': freq_neg}
 
+
+def summary(data: List[float]) -> Dict[str, int]:
+    """Return a dictionary of summary statistics for a list of numbers.
+
+    Mappings:
+        - 'mean': mean of the data
+        - 'median': median of the data
+        - 'stdev': standard deviation of the data (assuming full dataset)
+        - 'range': (statistical) range of the data
+        - 'iqr': interquartile range of the data
+    
+    Preconditions:
+        - len(data) > 0
+    """
+    return {
+        'mean': statistics.mean(data),
+        'median': statistics.median(data),
+        'stdev': statistics.pstdev(data),
+        'range': max(data) - min(data),
+        'iqt': ...
+    }
