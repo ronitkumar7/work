@@ -36,3 +36,16 @@ def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
     min_compound = min(compound_values)
 
     return (min_compound, max_compound)
+
+
+def lst_vader_values(tweets: List[Tweet], value: str) -> List[float]:
+    """Returns a list containing the positive, negative, neutral or compound
+    values of each of the tweets provided.
+    
+    Preconditions:
+        - tweets != []
+    """
+    vader_lst = []
+    for tweet in tweets:
+        vader_lst.append(vader_values(tweet, value))
+    return vader_lst
