@@ -1,3 +1,6 @@
+"""
+Code to format raw data from .csv file into usable Python objects.
+"""
 from dataclasses import dataclass
 from typing import List
 import csv
