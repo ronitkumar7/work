@@ -14,9 +14,9 @@ class Tweet:
         - id: unique tweet id assigned by Twitter
 
     Representation Invariants:
-        - sentiment in {-1, 0, 1, 2}
-        - len(content) > 0
-        - id > 0
+        - self.sentiment in {-1, 0, 1, 2}
+        - len(self.content) > 0
+        - self.id > 0
     """
     sentiment: int
     content: str
