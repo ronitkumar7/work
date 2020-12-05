@@ -32,9 +32,9 @@ def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
         - all({type(tweet) == Tweet for tweet in tweets})
         - tweets != []
     """
-    compound_values = set()
-    for tweet in tweets:
-        compound_values.add(vader_values(tweet, 'compound'))
+    compound_values = {vader_values(tweet, 'compound') for tweet in tweets}
+
     max_compound = max(compound_values)
     min_compound = min(compound_values)
+
     return (min_compound, max_compound)
