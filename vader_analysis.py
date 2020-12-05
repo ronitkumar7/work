@@ -28,7 +28,6 @@ def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
     is the highest compound value. 
     
     Preconditions:
-        - all({type(tweet) == Tweet for tweet in tweets})
         - tweets != []
     """
     compound_values = {vader_values(tweet, 'compound') for tweet in tweets}
