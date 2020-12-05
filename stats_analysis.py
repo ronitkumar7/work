@@ -13,11 +13,12 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
     freq_neg = 0
     freq_pos = 0
     freq_neu = 0
-    for tweet in tweets_values:
-        if tweet[1] < range_compound[0]:
+    for tweet_tuple in tweets_values:
+        if tweet_tuple[1] < range_compound[0]:
             freq_neg += 1
-        elif tweet[1] > range_compound[1]:
+        elif tweet_tuple[1] > range_compound[1]:
             freq_pos += 1
-        elif range_compound[0] <= tweet[1] <= range_compound[1]:
+        elif range_compound[0] <= tweet_tuple[1] <= range_compound[1]:
             freq_neu += 1
     return {'positive': freq_pos, 'neutral': freq_neu, 'negative': freq_neg}
+
