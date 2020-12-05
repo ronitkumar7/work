@@ -1,3 +1,7 @@
+"""
+Driver file for the Climate Change Sentiment on Twitter project.
+"""
+
 import data_formatting
 import vader_analysis
 import stats_analysis
