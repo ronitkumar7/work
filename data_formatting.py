@@ -28,11 +28,10 @@ class Tweet:
 
 def process(file: str) -> List[Tweet]:
     """Parse CSV file into a list of Tweets for further analysis.
-    Also formats out '\n' and replaces '$q$' with single quotes.
+    Also, remove newline characters ('\n') and replace `$q$` with an apostrophe.
 
-    Our file address is twitter_sentiment_data.csv
     Preconditions:
-        - file is not None
+        - file != ''
     """
     tweets_so_far = []
     with open(file, encoding="utf8") as csv_file:
