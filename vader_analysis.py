@@ -44,8 +44,8 @@ def lst_vader_values(tweets: List[Tweet], value: str) -> List[float]:
     
     Preconditions:
         - tweets != []
+        - value in {'neg', 'neu', 'pos', 'compound'}
     """
-    vader_lst = []
-    for tweet in tweets:
-        vader_lst.append(vader_values(tweet, value))
+    vader_lst = [vader_values(tweet, value) for tweet in tweets]
+
     return vader_lst
