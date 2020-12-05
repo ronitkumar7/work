@@ -12,14 +12,13 @@ from data_formatting import Tweet
 
 def vader_values(tweet: Tweet, value: str) -> float:
     """Returns the positive, negative, neutral or compound value of a tweet as 
-    calculated by the polarity_score method of SentimentIntensityAnalyzer(). 
+    calculated by the polarity_scores method of SentimentIntensityAnalyzer(). 
     
     Preconditions: 
-        - type(tweet) == Tweet
-        - value in ['neg', 'neu', 'pos', 'compound']
+        - value in {'neg', 'neu', 'pos', 'compound'}
     """
-    a = SentimentIntensityAnalyzer()
-    polarity_scores_dict = a.polarity_scores(tweet.content)
+    analyzer = SentimentIntensityAnalyzer()
+    polarity_scores_dict = analyzer.polarity_scores(tweet.content)
     return polarity_scores_dict[value]
 
 
