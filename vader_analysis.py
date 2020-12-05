@@ -12,14 +12,13 @@ from data_formatting import Tweet
 
 def vader_values(tweet: Tweet, value: str) -> float:
     """Returns the positive, negative, neutral or compound value of a tweet as 
-    calculated by the polarity_score method of SentimentIntensityAnalyzer(). 
+    calculated by the polarity_scores method of SentimentIntensityAnalyzer(). 
     
     Preconditions: 
-        - type(tweet) == Tweet
-        - value in ['neg', 'neu', 'pos', 'compound']
+        - value in {'neg', 'neu', 'pos', 'compound'}
     """
-    a = SentimentIntensityAnalyzer()
-    polarity_scores_dict = a.polarity_scores(tweet.content)
+    analyzer = SentimentIntensityAnalyzer()
+    polarity_scores_dict = analyzer.polarity_scores(tweet.content)
     return polarity_scores_dict[value]
 
 
@@ -29,12 +28,24 @@ def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
     is the highest compound value. 
     
     Preconditions:
-        - all({type(tweet) == Tweet for tweet in tweets})
         - tweets != []
     """
-    compound_values = set()
-    for tweet in tweets:
-        compound_values.add(vader_values(tweet, 'compound'))
+    compound_values = {vader_values(tweet, 'compound') for tweet in tweets}
+
     max_compound = max(compound_values)
     min_compound = min(compound_values)
+
     return (min_compound, max_compound)
+
+
+def lst_vader_values(tweets: List[Tweet], value: str) -> List[float]:
+    """Returns a list containing the positive, negative, neutral or compound
+    values of each of the tweets provided.
+    
+    Preconditions:
+        - tweets != []
+        - value in {'neg', 'neu', 'pos', 'compound'}
+    """
+    vader_lst = [vader_values(tweet, value) for tweet in tweets]
+
+    return vader_lst
