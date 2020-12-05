@@ -39,8 +39,7 @@ def process(file: str) -> List[Tweet]:
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader)
         for row in csv_reader:
-            edited_text = row[1].replace('$q$', "'")
-            edited_text = edited_text.replace('\n', '')
+            edited_text = row[1].replace('$q$', "'").replace('\n', '')
             tweet = Tweet(sentiment=int(row[0]), content=edited_text, id=int(row[2]))
             tweets_so_far.append(tweet)
     return tweets_so_far
