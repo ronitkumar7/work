@@ -6,16 +6,35 @@ Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 """
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from typing import List, Dict
+from typing import List, Tuple
 from data_formatting import Tweet
 
-def analyse(data: List[Tweet]) -> Dict[Tweet.content, Dict[str, int]]:
-    """ Return a mapping of each tweet to its sentiment data.
 
-
+def vader_values(tweet: Tweet, value: str) -> float:
+    """Returns the positive, negative, neutral or compound value of a tweet as 
+    calculated by the polarity_score method of SentimentIntensityAnalyzer(). 
+    
+    Preconditions: 
+        - type(tweet) == Tweet
+        - value in ['neg', 'neu', 'pos', 'compound']
     """
-    analyzer = SentimentIntensityAnalyzer()
-    for tweet in data:
-        vs = analyzer.polarity_scores(tweet.content)
+    a = SentimentIntensityAnalyzer()
+    polarity_scores_dict = a.polarity_scores(tweet.content)
+    return polarity_scores_dict[value]
 
-    return ...
+
+def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
+    """Returns the range of compound values of a list of given tweets in the 
+    form of a tuple (min, max) where min is the lowest compound value and max 
+    is the highest compound value. 
+    
+    Preconditions:
+        - all({type(tweet) == Tweet for tweet in tweets})
+        - tweets != []
+    """
+    compound_values = set()
+    for tweet in tweets:
+        compound_values.add(vader_values(tweet, 'compound'))
+    max_compound = max(compound_values)
+    min_compound = min(compound_values)
+    return (min_compound, max_compound)
