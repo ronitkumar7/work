@@ -2,7 +2,7 @@
 Code to format raw data from .csv file into usable Python objects.
 """
 from dataclasses import dataclass
-from typing import List
+from typing import List, Dict
 import csv
 
 
@@ -42,3 +42,18 @@ def process(file: str) -> List[Tweet]:
             tweet = Tweet(sentiment=int(row[0]), content=edited_text, id=int(row[2]))
             tweets_so_far.append(tweet)
     return tweets_so_far
+
+
+def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
+    """Returns a dictionary of 4 keys, each key corresponding to a sentiment 
+    value.
+    
+    Preconditions:
+        - tweets != []
+    """
+    tweet_dict = {-1: [], 0: [], 1: [], 2: []}
+    for tweet in tweets:
+        for key in tweet_dict:
+            if tweet.sentiment == key:
+                tweet_dict[key].append(tweet)
+    return tweet_dict
