@@ -12,6 +12,11 @@ if __name__ == "__main__":
     FILEPATH = 'twitter_sentiment_data.csv'
 
     dataset = data_formatting.process(FILEPATH)
+    sorted_tweets = data_formatting.sort_tweets(dataset)
+    neg_tweets = sorted_tweets[-1]
+    neut_tweets = sorted_tweets[0]
+    pos_tweets = sorted_tweets[1]
+    news_tweets = sorted_tweets[2]
 
     # VADER sentiment analysis
     vader_analysis.analyze(dataset)
