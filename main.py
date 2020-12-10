@@ -5,6 +5,7 @@ Driver file for the Climate Change Sentiment on Twitter project.
 import data_formatting
 import vader_analysis
 import stats_analysis
+import pick_graph
 
 if __name__ == "__main__":
 
@@ -29,4 +30,4 @@ if __name__ == "__main__":
     # Interactive pygame
     #
     # Create window and run interactive module
-    ...
+    pick_graph.run_game()
