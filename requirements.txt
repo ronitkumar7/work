@@ -1,8 +1,9 @@
 # CSC110: Requirements for final project
 
 # Computation
-vaderAnalysis=2.3.3
+vaderAnalysis==3.3.2
+numpy==1.19.4
 
 # Graphics and data visualization
-plotly
+plotly==4.13.0
 pygame==2.0.0.dev10
