@@ -35,7 +35,7 @@ class Tweet:
         self.id = id
     
     def add_vader(self, vader: Dict[str, float]) -> None: 
-        """Add the postive, neutral, negative and compound values calculated 
+        """Add the positive, neutral, negative and compound values calculated
         vader_analysis as a list of 4 floats in the order described above."""
         self.vader = vader
         
