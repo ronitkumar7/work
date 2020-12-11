@@ -17,19 +17,3 @@ def add_vader_to_tweets(tweets: List[Tweet]) -> None:
     analyzer = SentimentIntensityAnalyzer()
     for tweet in tweets:
         tweet.vader = analyzer.polarity_scores(tweet.content)
-
-
-def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
-    """Returns the range of compound values of a list of given tweets in the 
-    form of a tuple (min, max) where min is the lowest compound value and max 
-    is the highest compound value. 
-    
-    Preconditions:
-        - tweets != []
-    """
-    compound_values = {tweet.vader['compound'] for tweet in tweets}
-
-    max_compound = max(compound_values)
-    min_compound = min(compound_values)
-
-    return (min_compound, max_compound)

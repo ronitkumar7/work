@@ -1,11 +1,19 @@
 """All code for doing statistical analysis on tweets."""
 from data_formatting import Tweet
 from typing import List, Dict
-from vader_analysis import range_of_compound_values
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 
 import statistics
+
+
+def min_max_values(data: List[float]) -> Tuple[float, float]:
+    """Returns the minimum and maximum of a list of numbers in a tuple (min, max).
+    
+    Preconditions:
+        - data != []
+    """
+    return (min(data), max(data))
 
 
 def frequency(tweets: List[Tweet]) -> Dict[str, int]:
@@ -16,7 +24,7 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
         - all(t.vader is not None for t in tweets)
     """
     news_neutral_tweets = [tweet for tweet in tweets if tweet.sentiment in {0, 2}]
-    range_compound = range_of_compound_values(news_neutral_tweets)
+    range_compound = min_max_values([t.vader['compound'] for t in news_neutral_tweets])
     freq_neg = 0
     freq_pos = 0
     freq_neu = 0
