@@ -13,18 +13,20 @@ class Tweet:
         "does not support", 0 "neutral", 1 "supports", 2 "factual news"
         - content: text of the tweet
         - id: unique tweet id assigned by Twitter
-        - vader: a list of 4 floats [neg, neu, pos, compound] that describes 
-        polarity scores of each tweet. 
+        - vader: a dictionary mapping the tweet's sentiment values to their associated 
+        polarity scores (neg, neu, pos, compound)
 
     Representation Invariants:
         - self.sentiment in {-1, 0, 1, 2}
         - len(self.content) > 0
         - self.id > 0
+        - all(i in {-1, 0, 1, 2} for i in vader)
+        - all(0.0 <= i <= 1.0 for i in vader.values())
     """
     sentiment: int
     content: str
     id: int
-    vader: Optional[Dict[int, float]]
+    vader: Optional[Dict[int, float]] = None
     
     def __init__(self, sentiment: int, content: str, id: int) -> None:
         """Initialize the a new Tweet"""
