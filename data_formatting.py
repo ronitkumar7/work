@@ -1,20 +1,20 @@
 """
 Code to format raw data from .csv file into usable Python objects.
 """
-from dataclasses import dataclass
-from typing import List, Dict
+from typing import List, Dict, Optional, Tuple
 import csv
 
 
-@dataclass
 class Tweet:
     """A dataclass representing the data stored about each tweet in the dataset.
 
     Instance Attributes:
-        - sentiment: sentiment value towards climate change: -1 indicates "does not support",
-        0 "neutral", 1 "supports", 2 "factual news"
+        - sentiment: sentiment value towards climate change: -1 indicates 
+        "does not support", 0 "neutral", 1 "supports", 2 "factual news"
         - content: text of the tweet
         - id: unique tweet id assigned by Twitter
+        - vader: a list of 4 floats [neg, neu, pos, compound] that describes 
+        polarity scores of each tweet. 
 
     Representation Invariants:
         - self.sentiment in {-1, 0, 1, 2}
@@ -24,7 +24,19 @@ class Tweet:
     sentiment: int
     content: str
     id: int
-
+    vader: Optional[Tuple[float, float, float, float]]
+    
+    def __init__(self, sentiment: int, content: str, id: int) -> None:
+        """Initialize the a new Tweet"""
+        self.sentiment = sentiment 
+        self.content = content
+        self.id = id
+    
+    def add_vader(self, vader: Tuple[float, float, float, float]) -> None: 
+        """Add the postive, neutral, negative and compound values calculated 
+        vader_analysis as a list of 4 floats in the order described above."""
+        self.vader = vader
+        
 
 def process(file: str) -> List[Tweet]:
     """Parse CSV file into a list of Tweets for further analysis.
