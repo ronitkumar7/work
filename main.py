@@ -20,7 +20,7 @@ if __name__ == "__main__":
     news_tweets = sorted_tweets[2]
 
     # VADER sentiment analysis
-    vader_analysis.analyze(dataset)
+    vader_analysis.add_vader_to_tweets(dataset)
 
     # Statistical analysis
     #
