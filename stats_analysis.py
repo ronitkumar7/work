@@ -46,7 +46,6 @@ def summary(data: List[float]) -> Dict[str, float]:
         - 'median': median of the data
         - 'stdev': standard deviation of the data (assuming full dataset)
         - 'range': (statistical) range of the data
-        - 'iqr': interquartile range of the data
     
     Preconditions:
         - len(data) > 0
