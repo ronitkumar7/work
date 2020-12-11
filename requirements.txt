@@ -1,7 +1,7 @@
 # CSC110: Requirements for final project
 
 # Computation
-vaderAnalysis==3.3.2
+vaderSentiment==3.3.2
 numpy==1.19.4
 
 # Graphics and data visualization
