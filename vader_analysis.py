@@ -10,7 +10,7 @@ from typing import List, Tuple
 from data_formatting import Tweet
 
 
-def vader_values(tweet: Tweet, value: str) -> float:
+def add_vader_to_tweets(tweets: List[Tweet]) -> None:
     """Returns the positive, negative, neutral or compound value of a tweet as 
     calculated by the polarity_scores method of SentimentIntensityAnalyzer(). 
     
@@ -18,8 +18,9 @@ def vader_values(tweet: Tweet, value: str) -> float:
         - value in {'neg', 'neu', 'pos', 'compound'}
     """
     analyzer = SentimentIntensityAnalyzer()
-    polarity_scores_dict = analyzer.polarity_scores(tweet.content)
-    return polarity_scores_dict[value]
+    for tweet in tweets:
+        polarity_scores_dict = analyzer.polarity_scores(tweet.content)
+        tweet.add_vader(polarity_scores_dict)
 
 
 def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
@@ -30,7 +31,7 @@ def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:
     Preconditions:
         - tweets != []
     """
-    compound_values = {vader_values(tweet, 'compound') for tweet in tweets}
+    compound_values = {tweet.vader[2] for tweet in tweets}
 
     max_compound = max(compound_values)
     min_compound = min(compound_values)
