@@ -1,6 +1,7 @@
 """Run a PyGame that allows the user to pick the graph they want to visualize."""
 
 import pygame
+import main
 
 
 def run_game() -> None:
@@ -16,9 +17,13 @@ def run_game() -> None:
     white = (255, 255, 255)
     black = (0, 0, 0)
     red = (255, 0, 0)
-    green = (0, 255, 0)
+    dark_red = (200, 0, 0)
+    green = (0, 200, 0)
+    dark_green = (50, 150, 0)
     blue = (0, 0, 255)
-    yellow = (255, 255, 0)
+    dark_blue = (0, 0, 200)
+    yellow = (255, 233, 0)
+    dark_yellow = (246, 190, 0)
 
     pygame.display.set_caption('Pick a Graph')
 
@@ -48,6 +53,16 @@ def run_game() -> None:
     text5_rect = text5.get_rect()
     text5_rect.center = (3 * width // 4, 375)
 
+    but_text = font2.render('Click me!', True, white)
+    but_text_rect = but_text.get_rect()
+
+    def mouse_in(x_pos: int, y_pos: int) -> bool:
+        """
+        Check if the position of the mouse is inside a 200 by 100 rectangle
+        with starting coordinates x_pos and y_pos
+        """
+        return x_pos < mouse[0] < x_pos + 200 and y_pos < mouse[1] < y_pos + 100
+
     running = True
 
     while running:
@@ -56,7 +71,14 @@ def run_game() -> None:
                 running = False
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
-                ...
+                if mouse_in(width // 8, 225):
+                    main.graph_neg()
+                elif mouse_in(5 * width // 8, 225):
+                    main.graph_pos()
+                elif mouse_in(width // 8, 425):
+                    main.graph_neut()
+                elif mouse_in(5 * width // 8, 425):
+                    main.graph_news()
 
         screen.fill(white)
 
@@ -66,6 +88,33 @@ def run_game() -> None:
         screen.blit(text3, text3_rect)
         screen.blit(text4, text4_rect)
         screen.blit(text5, text5_rect)
+
+        mouse = pygame.mouse.get_pos()
+
+        if mouse_in(width // 8, 225):
+            pygame.draw.rect(screen, red, (width // 8, 225, 200, 100))
+            but_text_rect.center = (width // 4, 275)
+            screen.blit(but_text, but_text_rect)
+        else:
+            pygame.draw.rect(screen, dark_red, (width // 8, 225, 200, 100))
+        if mouse_in(5 * width // 8, 225):
+            pygame.draw.rect(screen, green, (5 * width // 8, 225, 200, 100))
+            but_text_rect.center = (3 * width // 4, 275)
+            screen.blit(but_text, but_text_rect)
+        else:
+            pygame.draw.rect(screen, dark_green, (5 * width // 8, 225, 200, 100))
+        if mouse_in(width // 8, 425):
+            pygame.draw.rect(screen, blue, (width // 8, 425, 200, 100))
+            but_text_rect.center = (width // 4, 475)
+            screen.blit(but_text, but_text_rect)
+        else:
+            pygame.draw.rect(screen, dark_blue, (width // 8, 425, 200, 100))
+        if mouse_in(5 * width // 8, 425):
+            pygame.draw.rect(screen, yellow, (5 * width // 8, 425, 200, 100))
+            but_text_rect.center = (3 * width // 4, 475)
+            screen.blit(but_text, but_text_rect)
+        else:
+            pygame.draw.rect(screen, dark_yellow, (5 * width // 8, 425, 200, 100))
 
         pygame.display.update()
 
