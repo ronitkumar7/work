@@ -24,7 +24,7 @@ class Tweet:
     sentiment: int
     content: str
     id: int
-    vader: Optional[Tuple[float, float, float, float]]
+    vader: Optional[Dict[int, float]]
     
     def __init__(self, sentiment: int, content: str, id: int) -> None:
         """Initialize the a new Tweet"""
@@ -32,7 +32,7 @@ class Tweet:
         self.content = content
         self.id = id
     
-    def add_vader(self, vader: Tuple[float, float, float, float]) -> None: 
+    def add_vader(self, vader: Dict[int, float]) -> None: 
         """Add the postive, neutral, negative and compound values calculated 
         vader_analysis as a list of 4 floats in the order described above."""
         self.vader = vader
