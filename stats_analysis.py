@@ -61,11 +61,15 @@ def summary(data: List[float]) -> Dict[str, int]:
     }
 
 
-def plot_pos_neg(values: List[Tuple[float, float]]) -> None:
+def plot_pos_neg(tweets: List[Tweet]) -> None:
     """Given tuples of positive and negative values of a list of tweets,
     plots them in a 2D plane with the x-axis as positive values and the 
-    y-axis representing negative values."""
-    x_values = [negative[1] for negative in values]
-    y_values = [positive[0] for positive in values]
+    y-axis representing negative values.
+    
+    Preconditions:
+        - all(tweet.vader != None for tweet in tweets)
+    """
+    x_values = [tweet.vader['neg'] for tweet in tweets]
+    y_values = [tweet.vader['pos'] for tweet in tweets]
     plt.scatter(x_values, y_values)
     plt.show()
