@@ -1,7 +1,7 @@
 """All code for doing statiscal analysis on tweets."""
 from data_formatting import Tweet
-from typing import List, Dict, Tuple
-from vader_analysis import range_of_compound_values, vader_values
+from typing import List, Dict
+from vader_analysis import range_of_compound_values
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 
@@ -13,7 +13,7 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
     list of tweets provided."""
     news_neutral_tweets = [tweet for tweet in tweets if tweet.sentiment in {0,2}]
     range_compound = range_of_compound_values(news_neutral_tweets)
-    tweets_values = [(tweet, vader_values(tweet, 'compound')) for tweet in tweets]
+    tweets_values = [(tweet, tweet.vader['compound']) for tweet in tweets]
     freq_neg = 0
     freq_pos = 0
     freq_neu = 0
@@ -33,7 +33,7 @@ def normal_histogram(tweets: List[Tweet]) -> None:
     """
     compound_values = []
     for tweet in tweets:
-        compound_values.append(vader_values(tweet, 'compound'))
+        compound_values.append(tweet.vader['compound'])
     fig = go.Figure(data=[go.Histogram(x=compound_values, histnorm='probability')])
     fig.update_traces(xbins_size=0.01, selector=dict(type='histogram'))
     fig.show()
