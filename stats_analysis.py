@@ -52,7 +52,7 @@ def summary(data: List[float]) -> Dict[str, float]:
     Mappings:
         - 'mean': mean of the data
         - 'median': median of the data
-        - 'stdev': standard deviation of the data (assuming full dataset)
+        - 'stdev': sample standard deviation of the data
         - 'range': (statistical) range of the data
     
     Preconditions:
@@ -61,7 +61,7 @@ def summary(data: List[float]) -> Dict[str, float]:
     return {
         'mean': statistics.mean(data),
         'median': statistics.median(data),
-        'stdev': statistics.pstdev(data),
+        'stdev': statistics.stdev(data),
         'range': max(data) - min(data)
     }
 
