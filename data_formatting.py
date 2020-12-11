@@ -26,7 +26,7 @@ class Tweet:
     sentiment: int
     content: str
     id: int
-    vader: Optional[Dict[int, float]]
+    vader: Optional[Dict[int, float]] = None
     
     def __init__(self, sentiment: int, content: str, id: int) -> None:
         """Initialize the a new Tweet"""
