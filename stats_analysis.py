@@ -39,9 +39,8 @@ def normal_histogram(tweets: List[Tweet]) -> None:
     Precondition:
         - all(t.vader is not None for t in tweets)
     """
-    compound_values = []
-    for tweet in tweets:
-        compound_values.append(tweet.vader['compound'])
+    compound_values = [tweet.vader['compound'] for tweet in tweets]
+
     fig = go.Figure(data=[go.Histogram(x=compound_values, histnorm='probability')])
     fig.update_traces(xbins_size=0.01, selector=dict(type='histogram'))
     fig.show()
