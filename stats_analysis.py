@@ -1,6 +1,6 @@
 """All code for doing statistical analysis on tweets."""
 from data_formatting import Tweet
-from typing import List, Dict
+from typing import List, Dict, Tuple
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 
