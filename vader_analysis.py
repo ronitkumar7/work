@@ -19,8 +19,7 @@ def add_vader_to_tweets(tweets: List[Tweet]) -> None:
     """
     analyzer = SentimentIntensityAnalyzer()
     for tweet in tweets:
-        polarity_scores_dict = analyzer.polarity_scores(tweet.content)
-        tweet.add_vader(polarity_scores_dict)
+        tweet.vader = analyzer.polarity_scores(tweet.content)
 
 
 def range_of_compound_values(tweets: List[Tweet]) -> Tuple[float, float]:

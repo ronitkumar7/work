@@ -3,6 +3,7 @@ Driver file for the Climate Change Sentiment on Twitter project.
 """
 
 import data_formatting
+import vader_analysis
 import stats_analysis
 import pick_graph
 
@@ -17,6 +18,9 @@ if __name__ == "__main__":
     neut_tweets = sorted_tweets[0]
     pos_tweets = sorted_tweets[1]
     news_tweets = sorted_tweets[2]
+
+    # VADER sentiment analysis
+    vader_analysis.add_vader_to_tweets(dataset)
 
     # Interactive pygame
     #
