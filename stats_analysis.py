@@ -1,6 +1,6 @@
 """All code for doing statiscal analysis on tweets."""
 from data_formatting import Tweet
-from typing import List, Dict
+from typing import List, Dict, Tuple
 from vader_analysis import range_of_compound_values, vader_values
 import plotly.graph_objects as go
 
@@ -58,3 +58,10 @@ def summary(data: List[float]) -> Dict[str, int]:
         'range': max(data) - min(data),
         'iqt': ...
     }
+
+
+def plot_pos_neg(values: List[Tuple[float, float]]) -> None:
+    """Given tuples of positive and negative values of a list of tweets,
+    plots them in a 2D plane with the x-axis as positive values and the 
+    y-axis representing negative values."""
+    ...
