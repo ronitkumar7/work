@@ -4,7 +4,7 @@ Code to format raw data from .csv file into usable Python objects.
 from typing import List, Dict, Optional, Tuple
 import csv
 
-
+@dataclass
 class Tweet:
     """A dataclass representing the data stored about each tweet in the dataset.
 
@@ -13,8 +13,8 @@ class Tweet:
         "does not support", 0 "neutral", 1 "supports", 2 "factual news"
         - content: text of the tweet
         - id: unique tweet id assigned by Twitter
-        - vader: a list of 4 floats [neg, neu, pos, compound] that describes 
-        polarity scores of each tweet. 
+        - vader: a dictionary mapping of polarity score types [neg, neu, pos, compound] to
+        their respective values
 
     Representation Invariants:
         - self.sentiment in {-1, 0, 1, 2}
@@ -27,18 +27,7 @@ class Tweet:
     content: str
     id: int
     vader: Optional[Dict[str, float]] = None
-    
-    def __init__(self, sentiment: int, content: str, id: int) -> None:
-        """Initialize the a new Tweet"""
-        self.sentiment = sentiment 
-        self.content = content
-        self.id = id
-    
-    def add_vader(self, vader: Dict[str, float]) -> None: 
-        """Add the positive, neutral, negative and compound values calculated
-        vader_analysis as a list of 4 floats in the order described above."""
-        self.vader = vader
-        
+
 
 def process(file: str) -> List[Tweet]:
     """Parse CSV file into a list of Tweets for further analysis.
