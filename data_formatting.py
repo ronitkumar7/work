@@ -13,20 +13,20 @@ class Tweet:
         "does not support", 0 "neutral", 1 "supports", 2 "factual news"
         - content: text of the tweet
         - id: unique tweet id assigned by Twitter
-        - vader: a dictionary mapping the tweet's sentiment values to their associated 
-        polarity scores (neg, neu, pos, compound)
+        - vader: a list of 4 floats [neg, neu, pos, compound] that describes 
+        polarity scores of each tweet. 
 
     Representation Invariants:
         - self.sentiment in {-1, 0, 1, 2}
         - len(self.content) > 0
         - self.id > 0
-        - all(i in {-1, 0, 1, 2} for i in vader)
-        - all(0.0 <= i <= 1.0 for i in vader.values())
+        - self.vader.keys() == ['neg', 'neu', 'pos', 'compound']
+        - all(0.0 <= i <= 1.0 for i in self.vader.values())
     """
     sentiment: int
     content: str
     id: int
-    vader: Optional[Dict[int, float]] = None
+    vader: Optional[Dict[str, float]] = None
     
     def __init__(self, sentiment: int, content: str, id: int) -> None:
         """Initialize the a new Tweet"""
@@ -34,7 +34,7 @@ class Tweet:
         self.content = content
         self.id = id
     
-    def add_vader(self, vader: Dict[int, float]) -> None: 
+    def add_vader(self, vader: Dict[str, float]) -> None: 
         """Add the postive, neutral, negative and compound values calculated 
         vader_analysis as a list of 4 floats in the order described above."""
         self.vader = vader
