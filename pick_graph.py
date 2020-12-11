@@ -1,11 +1,23 @@
 """Run a PyGame that allows the user to pick the graph they want to visualize."""
 
 import pygame
-import main
+import stats_analysis
+from vader_analysis import add_vader_to_tweets
+from data_formatting import Tweet
+from typing import List, Dict
 
 
-def run_game() -> None:
+def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     """Run the pygame"""
+
+    neg_tweets = tweets[-1]
+    add_vader_to_tweets(neg_tweets)
+    neut_tweets = tweets[0]
+    add_vader_to_tweets(neut_tweets)
+    pos_tweets = tweets[1]
+    add_vader_to_tweets(pos_tweets)
+    news_tweets = tweets[2]
+    add_vader_to_tweets(news_tweets)
 
     pygame.init()
 
@@ -72,13 +84,13 @@ def run_game() -> None:
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if mouse_in(width // 8, 225):
-                    main.graph_neg()
+                    stats_analysis.normal_histogram(neg_tweets)
                 elif mouse_in(5 * width // 8, 225):
-                    main.graph_pos()
+                    stats_analysis.normal_histogram(pos_tweets)
                 elif mouse_in(width // 8, 425):
-                    main.graph_neut()
+                    stats_analysis.normal_histogram(neut_tweets)
                 elif mouse_in(5 * width // 8, 425):
-                    main.graph_news()
+                    stats_analysis.normal_histogram(news_tweets)
 
         screen.fill(white)
 
