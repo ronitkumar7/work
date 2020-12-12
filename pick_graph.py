@@ -122,8 +122,8 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
                     stats_analysis.normal_histogram(news_tweets)
                 elif mouse_in(5 * width // 8, 450):
                     stats_analysis.plot_pos_neg(news_tweets)
-                # elif mouse_in(3 * width // 8, 325):
-                #     stats_analysis.plot_compound(tweets)
+                elif mouse_in(3 * width // 8, 325):
+                    stats_analysis.plot_compound(tweets)
 
         screen.fill(white)
 
