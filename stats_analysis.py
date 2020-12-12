@@ -1,9 +1,8 @@
 """All code for doing statistical analysis on tweets."""
-from data_formatting import Tweet
+from data_formatting import Tweet, sort_tweets
 from typing import List, Dict, Tuple
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-
 import statistics
 
 
@@ -119,4 +118,18 @@ def plot_compound(tweets: List[Tweet]) -> None:
     and the y-coordinate is fixed for each tweet type 
     (-1 for 'does not support', 0 for 'neutral', 1 for 'supports' and 2 for 'news')
     """
-    ...
+    sorted_tweets = sort_tweets(tweets)
+    not_support = [tweet.vader['compound'] for tweet in sorted_tweets[-1]]
+    neutral = [tweet.vader['compound'] for tweet in sorted_tweets[0]]
+    support = [tweet.vader['compound'] for tweet in sorted_tweets[1]]
+    news = [tweet.vader['compound'] for tweet in sorted_tweets[2]]
+    y_not_support = [-1 for _ in range(0, len(not_support))]
+    y_neutral = [0 for _ in range(0, len(neutral))]
+    y_support = [1 for _ in range(0, len(support))]
+    y_news = [2 for _ in range(0, len(news))]
+    plt.scatter(not_support, y_not_support, s=0.1, marker='.')
+    plt.scatter(neutral, y_neutral, s=0.1, marker='.')
+    plt.scatter(support, y_support, s=0.1, marker='.')
+    plt.scatter(news, y_news, s=0.1, marker='.')
+    plt.show()
+    # still need to make plot wider to make difference more visible
