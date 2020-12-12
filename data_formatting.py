@@ -15,15 +15,17 @@ class Tweet:
         - opinion: value dictates opinon towards climate change: -1 indicates
         "does not support", 0 "neutral", 1 "supports", 2 "factual news"
         - content: text of the tweet
-        - sentiment: a dictionary mapping of polarity score types [neg, neu, pos, compound] to
-        their respective values
+        - sentiment: a dictionary mapping of sentiment analysis scores (neg, neu, pos, compound)
+        to their respective values
 
     Representation Invariants:
         - self.opinion in {-1, 0, 1, 2}
         - len(self.content) > 0
-        - self.id > 0
         - self.sentiment.keys() == ['neg', 'neu', 'pos', 'compound']
-        - all(0.0 <= i <= 1.0 for i in self.sentiment.values())
+        - 0.0 <= self.sentiment['neg'] <= 1.0
+        - 0.0 <= self.sentiment['neu'] <= 1.0
+        - 0.0 <= self.sentiment['pos'] <= 1.0
+        - -1.0 <= self.sentiment['neg'] <= 1.0
 
     Sample Usage:
     >>> some_tweet = Tweet(opinion=0, content='David is cool!')
