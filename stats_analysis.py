@@ -55,7 +55,7 @@ def normal_histogram(tweets: List[Tweet]) -> None:
         'Range :' + str(summary_data['range'])
     ]
 
-    text = '<br>'.join(lines)  # Newlines represented by HTML '<br>' sequence
+    text = '<br>'.join(lines)  # HTML '<br>' sequence gives newlines
 
     layout = go.Layout(
         height=800,
@@ -63,17 +63,17 @@ def normal_histogram(tweets: List[Tweet]) -> None:
         yaxis=go.layout.YAxis(domain=[0.5, 1]),
         annotations=[
             go.layout.Annotation(
-                bordercolor='black',  # Remove this to hide border
-                align='left',  # Align text to the left
-                yanchor='top',  # Align text box's top edge
-                text=text,  # Set text with '<br>' strings as newlines
-                showarrow=False,  # Hide arrow head
-                width=650,  # Wrap text at around 800 pixels
+                bordercolor='black',
+                align='left',
+                yanchor='top',  # Align text box's top edge with y axis
+                text=text,
+                showarrow=False,
+                width=650,
                 xref='paper',  # Place relative to figure, not axes
                 yref='paper',
-                font={'family': 'Courier'},  # Use monospace font to keep nice indentation
-                x=0,  # Place on left edge
-                y=0.4  # Place a little more than half way down
+                font={'family': 'Courier'},
+                x=0,  # Coordinates start from top left corner
+                y=0.4
             )
         ])
     fig = go.Figure(data=[go.Histogram(x=compound_values, histnorm='probability')], layout=layout)
