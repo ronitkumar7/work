@@ -42,9 +42,17 @@ def process(file: str) -> List[Tweet]:
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader)
         for row in csv_reader:
-            edited_text = row[1].replace('$q$', "'").replace('\n', '')
-            tweet = Tweet(sentiment=int(row[0]), content=edited_text, id=int(row[2]))
-            tweets_so_far.append(tweet)
+            try:
+                last_row = ''
+                while last_row != row[1]:
+                    last_row = row[1]
+                    row[1] = row[1].encode('cp1252').decode('utf-8')
+            except:
+                pass
+            finally:
+                edited_text = row[1].replace('$q$', "'").replace('&amp;', '&')
+                tweet = Tweet(sentiment=int(row[0]), content=edited_text, id=int(row[2]))
+                tweets_so_far.append(tweet)
     return tweets_so_far
 
 
