@@ -22,7 +22,7 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
     Precondition:
         - all(t.vader is not None for t in tweets)
     """
-    news_neutral_tweets = [tweet for tweet in tweets if tweet.opinion in {0, 2}]
+    news_neutral_tweets = [t for t in tweets if t.opinion in {0, 2}]
     range_compound = min_max_values([t.sentiment['compound'] for t in news_neutral_tweets])
     freq_neg = 0
     freq_pos = 0
