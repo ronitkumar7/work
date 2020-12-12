@@ -109,7 +109,7 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     """
     x_values = [tweet.sentiment['neg'] for tweet in tweets]
     y_values = [tweet.sentiment['pos'] for tweet in tweets]
-    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values))
+    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='markers'))
     fig.show()
     
     
