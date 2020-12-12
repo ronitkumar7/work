@@ -6,7 +6,7 @@ Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 """
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from typing import List, Tuple
+from typing import List
 from data_formatting import Tweet
 
 
@@ -16,4 +16,4 @@ def add_vader_to_tweets(tweets: List[Tweet]) -> None:
     """
     analyzer = SentimentIntensityAnalyzer()
     for tweet in tweets:
-        tweet.vader = analyzer.polarity_scores(tweet.content)
+        tweet.sentiment = analyzer.polarity_scores(tweet.content)
