@@ -17,3 +17,21 @@ def add_vader_to_tweets(tweets: List[Tweet]) -> None:
     analyzer = SentimentIntensityAnalyzer()
     for tweet in tweets:
         tweet.sentiment = analyzer.polarity_scores(tweet.content)
+
+
+if __name__ == "__main__":
+    import python_ta
+    import python_ta.contracts
+    import doctest
+
+    python_ta.check_all(config={
+        'extra-imports': ['python_ta.contracts', 'vaderSentiment.vaderSentiment',
+                          'data_formatting'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
+
+    python_ta.contracts.DEBUG_CONTRACTS = False
+    python_ta.contracts.check_all_contracts()
+
+    doctest.testmod(verbose=True)

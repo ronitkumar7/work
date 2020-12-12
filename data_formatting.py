@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import List, Dict, Optional
 import csv
 
+
 @dataclass
 class Tweet:
     """A dataclass representing the data stored about each tweet in the dataset.
@@ -67,3 +68,21 @@ def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
             if tweet.opinion == key:
                 tweet_dict[key].append(tweet)
     return tweet_dict
+
+
+if __name__ == "__main__":
+    import python_ta
+    import python_ta.contracts
+    import doctest
+
+    python_ta.check_all(config={
+        'extra-imports': ['python_ta.contracts', 'dataclasses', 'csv'],
+        'allowed-io': ['process'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
+
+    python_ta.contracts.DEBUG_CONTRACTS = False
+    python_ta.contracts.check_all_contracts()
+
+    doctest.testmod(verbose=True)

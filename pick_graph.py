@@ -216,3 +216,21 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
 
     pygame.quit()
     quit()
+
+
+if __name__ == "__main__":
+    import python_ta
+    import python_ta.contracts
+    import doctest
+
+    python_ta.check_all(config={
+        'extra-imports': ['python_ta.contracts', 'data_formatting', 'pygame', 'stats_analysis',
+                          'vader_analysis'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
+
+    python_ta.contracts.DEBUG_CONTRACTS = False
+    python_ta.contracts.check_all_contracts()
+
+    doctest.testmod(verbose=True)
