@@ -24,9 +24,9 @@ class Tweet:
         - self.vader.keys() == ['neg', 'neu', 'pos', 'compound']
         - all(0.0 <= i <= 1.0 for i in self.vader.values())
     """
-    sentiment: int
+    opinion: int
     content: str
-    vader: Optional[Dict[str, float]] = None
+    sentiment: Optional[Dict[str, float]] = None
 
 
 def process(file: str) -> List[Tweet]:
@@ -50,7 +50,7 @@ def process(file: str) -> List[Tweet]:
                 pass
             finally:
                 edited_text = row[1].replace('$q$', "'").replace('&amp;', '&')
-                tweet = Tweet(sentiment=int(row[0]), content=edited_text)
+                tweet = Tweet(opinion=int(row[0]), content=edited_text)
                 tweets_so_far.append(tweet)
     return tweets_so_far
 
@@ -65,6 +65,6 @@ def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
     tweet_dict = {-1: [], 0: [], 1: [], 2: []}
     for tweet in tweets:
         for key in tweet_dict:
-            if tweet.sentiment == key:
+            if tweet.opinion == key:
                 tweet_dict[key].append(tweet)
     return tweet_dict
