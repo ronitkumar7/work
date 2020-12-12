@@ -126,9 +126,15 @@ def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     y_neutral = [0 for _ in range(0, len(neutral))]
     y_support = [1 for _ in range(0, len(support))]
     y_news = [2 for _ in range(0, len(news))]
-    plt.scatter(not_support, y_not_support, s=0.1, marker='.')
-    plt.scatter(neutral, y_neutral, s=0.1, marker='.')
-    plt.scatter(support, y_support, s=0.1, marker='.')
-    plt.scatter(news, y_news, s=0.1, marker='.')
-    plt.show()
+    fig = go.Figure()
+    # Use x instead of y argument for horizontal plot
+    fig.add_trace(go.Box(x=not_support))
+    fig.add_trace(go.Box(x=neutral))
+    fig.add_trace(go.Box(x=support))
+    fig.add_trace(go.Box(x=news))
+    # plt.scatter(not_support, y_not_support, s=0.1, marker='.')
+    # plt.scatter(neutral, y_neutral, s=0.1, marker='.')
+    # plt.scatter(support, y_support, s=0.1, marker='.')
+    # plt.scatter(news, y_news, s=0.1, marker='.')
+    fig.show()
     # still need to make plot wider to make difference more visible
