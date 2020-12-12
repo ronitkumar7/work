@@ -2,7 +2,7 @@
 Code to format raw data from .csv file into usable Python objects.
 """
 from dataclasses import dataclass
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 import csv
 
 @dataclass
@@ -26,7 +26,6 @@ class Tweet:
     """
     sentiment: int
     content: str
-    id: int
     vader: Optional[Dict[str, float]] = None
 
 
@@ -51,7 +50,7 @@ def process(file: str) -> List[Tweet]:
                 pass
             finally:
                 edited_text = row[1].replace('$q$', "'").replace('&amp;', '&')
-                tweet = Tweet(sentiment=int(row[0]), content=edited_text, id=int(row[2]))
+                tweet = Tweet(sentiment=int(row[0]), content=edited_text)
                 tweets_so_far.append(tweet)
     return tweets_so_far
 
