@@ -1,10 +1,10 @@
 """Run a PyGame that allows the user to pick the graph they want to visualize."""
 
+from typing import List, Dict
 import pygame
 import stats_analysis
 from vader_analysis import add_vader_to_tweets
 from data_formatting import Tweet
-from typing import List, Dict
 
 
 def run_game(tweets: Dict[int, List[Tweet]]) -> None:

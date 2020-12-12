@@ -5,8 +5,8 @@ Sentiment Analysis of Social Media Text. Eighth International Conference on
 Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 """
 
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from typing import List
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from data_formatting import Tweet
 
 

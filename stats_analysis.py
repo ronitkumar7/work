@@ -1,8 +1,9 @@
 """All code for doing statistical analysis on tweets."""
-from data_formatting import Tweet
+
 from typing import List, Dict, Tuple
-import plotly.graph_objects as go
 import statistics
+import plotly.graph_objects as go
+from data_formatting import Tweet
 
 
 def min_max_values(data: List[float]) -> Tuple[float, float]:
