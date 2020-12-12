@@ -10,19 +10,18 @@ class Tweet:
     """A dataclass representing the data stored about each tweet in the dataset.
 
     Instance Attributes:
-        - sentiment: sentiment value towards climate change: -1 indicates 
+        - opinion: value dictates opinon towards climate change: -1 indicates
         "does not support", 0 "neutral", 1 "supports", 2 "factual news"
         - content: text of the tweet
-        - id: unique tweet id assigned by Twitter
-        - vader: a dictionary mapping of polarity score types [neg, neu, pos, compound] to
+        - sentiment: a dictionary mapping of polarity score types [neg, neu, pos, compound] to
         their respective values
 
     Representation Invariants:
-        - self.sentiment in {-1, 0, 1, 2}
+        - self.opinion in {-1, 0, 1, 2}
         - len(self.content) > 0
         - self.id > 0
-        - self.vader.keys() == ['neg', 'neu', 'pos', 'compound']
-        - all(0.0 <= i <= 1.0 for i in self.vader.values())
+        - self.sentiment.keys() == ['neg', 'neu', 'pos', 'compound']
+        - all(0.0 <= i <= 1.0 for i in self.sentiment.values())
     """
     opinion: int
     content: str
