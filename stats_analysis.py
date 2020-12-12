@@ -7,7 +7,7 @@ import statistics
 
 def min_max_values(data: List[float]) -> Tuple[float, float]:
     """Returns the minimum and maximum of a list of numbers in a tuple (min, max).
-    
+
     Preconditions:
         - data != []
     """
@@ -17,7 +17,7 @@ def min_max_values(data: List[float]) -> Tuple[float, float]:
 def frequency(tweets: List[Tweet]) -> Dict[str, int]:
     """Return the frequency of positive, negative and neutral tweets in the
     list of tweets provided.
-    
+
     Precondition:
         - all(t.vader is not None for t in tweets)
     """
@@ -26,7 +26,7 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
     freq_neg = 0
     freq_pos = 0
     freq_neu = 0
-    
+
     for tweet in tweets:
         if tweet.sentiment['compound'] < range_compound[0]:
             freq_neg += 1
@@ -34,7 +34,7 @@ def frequency(tweets: List[Tweet]) -> Dict[str, int]:
             freq_pos += 1
         elif range_compound[0] <= tweet.sentiment['compound'] <= range_compound[1]:
             freq_neu += 1
-    
+
     return {'positive': freq_pos, 'neutral': freq_neu, 'negative': freq_neg}
 
 
@@ -88,7 +88,7 @@ def summary(data: List[float]) -> Dict[str, float]:
         - 'median': median of the data
         - 'stdev': sample standard deviation of the data
         - 'range': (statistical) range of the data
-    
+
     Preconditions:
         - len(data) > 0
     """
@@ -102,8 +102,8 @@ def summary(data: List[float]) -> Dict[str, float]:
 
 def plot_pos_neg(tweets: List[Tweet]) -> None:
     """Plots each tweet as a point where the x-coordinate is the negative value
-    and the y-coordinate is the positive value. 
-    
+    and the y-coordinate is the positive value.
+
     Preconditions:
         - all(tweet.vader is not None for tweet in tweets)
     """
@@ -111,11 +111,11 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     y_values = [tweet.sentiment['pos'] for tweet in tweets]
     fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='markers'))
     fig.show()
-    
-    
+
+
 def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     """Plots each tweet as a point where the x-coordinate is the compound value
-    and the y-coordinate is fixed for each tweet type 
+    and the y-coordinate is fixed for each tweet type
     (-1 for 'does not support', 0 for 'neutral', 1 for 'supports' and 2 for 'news')
     """
     not_support = [tweet.sentiment['compound'] for tweet in sorted_tweets[-1]]

@@ -56,9 +56,8 @@ def process(file: str) -> List[Tweet]:
 
 
 def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
-    """Returns a dictionary of 4 keys, each key corresponding to a sentiment 
-    value.
-    
+    """Returns a dictionary of 4 keys, each key corresponding to a sentiment value.
+
     Preconditions:
         - tweets != []
     """

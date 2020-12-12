@@ -45,7 +45,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     font1 = pygame.font.Font('freesansbold.ttf', 36)
     title = font1.render('Welcome to our sentiment analysis!', True, black)
     title_rect = title.get_rect()
-    title_rect.center = (width//2, 50)
+    title_rect.center = (width // 2, 50)
 
     font2 = pygame.font.Font('freesansbold.ttf', 18)
     text1 = font2.render('Please click on the graph you would like to look at', True, black)

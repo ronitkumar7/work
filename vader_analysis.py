@@ -11,7 +11,7 @@ from data_formatting import Tweet
 
 
 def add_vader_to_tweets(tweets: List[Tweet]) -> None:
-    """Mutates each tweet to add its positive, negative, neutral, and compound values as 
+    """Mutates each tweet to add its positive, negative, neutral, and compound values as
     calculated by the polarity_scores method of SentimentIntensityAnalyzer().
     """
     analyzer = SentimentIntensityAnalyzer()
