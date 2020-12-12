@@ -2,7 +2,6 @@
 from data_formatting import Tweet
 from typing import List, Dict, Tuple
 import plotly.graph_objects as go
-import plotly.express as px
 import statistics
 
 
@@ -110,7 +109,7 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     """
     x_values = [tweet.vader['neg'] for tweet in tweets]
     y_values = [tweet.vader['pos'] for tweet in tweets]
-    fig = px.scatter(x_values, y_values)
+    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values))
     fig.show()
     
     
