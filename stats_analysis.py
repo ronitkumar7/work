@@ -103,14 +103,20 @@ def summary(data: List[float]) -> Dict[str, float]:
 
 
 def plot_pos_neg(tweets: List[Tweet]) -> None:
-    """Given tuples of positive and negative values of a list of tweets,
-    plots them in a 2D plane with the x-axis as positive values and the 
-    y-axis representing negative values.
+    """Plots each tweet as a point where the x-coordinate is the negative value
+    and the y-coordinate is the positive value. 
     
     Preconditions:
         - all(tweet.vader is not None for tweet in tweets)
     """
     x_values = [tweet.vader['neg'] for tweet in tweets]
     y_values = [tweet.vader['pos'] for tweet in tweets]
-    plt.scatter(x_values, y_values)
+    plt.scatter(x_values, y_values, s=2, marker="o")
     plt.show()
+    
+def plot_compound(tweets: List[Tweet]) -> None:
+    """Plots each tweet as a point where the x-coordinate is the compound value
+    and the y-coordinate is fixed for each tweet type 
+    (-1 for 'does not support', 0 for 'neutral', 1 for 'supports' and 2 for 'news')
+    """
+    ...
