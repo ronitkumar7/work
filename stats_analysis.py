@@ -2,7 +2,7 @@
 from data_formatting import Tweet
 from typing import List, Dict, Tuple
 import plotly.graph_objects as go
-import matplotlib.pyplot as plt
+import plotly.express as px
 import statistics
 
 
@@ -110,8 +110,9 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     """
     x_values = [tweet.vader['neg'] for tweet in tweets]
     y_values = [tweet.vader['pos'] for tweet in tweets]
-    plt.scatter(x_values, y_values, s=2, marker="o")
-    plt.show()
+    fig = px.scatter(x_values, y_values)
+    fig.show()
+    
     
 def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     """Plots each tweet as a point where the x-coordinate is the compound value
@@ -122,19 +123,10 @@ def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     neutral = [tweet.vader['compound'] for tweet in sorted_tweets[0]]
     support = [tweet.vader['compound'] for tweet in sorted_tweets[1]]
     news = [tweet.vader['compound'] for tweet in sorted_tweets[2]]
-    y_not_support = [-1 for _ in range(0, len(not_support))]
-    y_neutral = [0 for _ in range(0, len(neutral))]
-    y_support = [1 for _ in range(0, len(support))]
-    y_news = [2 for _ in range(0, len(news))]
     fig = go.Figure()
     # Use x instead of y argument for horizontal plot
     fig.add_trace(go.Box(x=not_support))
     fig.add_trace(go.Box(x=neutral))
     fig.add_trace(go.Box(x=support))
     fig.add_trace(go.Box(x=news))
-    # plt.scatter(not_support, y_not_support, s=0.1, marker='.')
-    # plt.scatter(neutral, y_neutral, s=0.1, marker='.')
-    # plt.scatter(support, y_support, s=0.1, marker='.')
-    # plt.scatter(news, y_news, s=0.1, marker='.')
     fig.show()
-    # still need to make plot wider to make difference more visible
