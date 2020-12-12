@@ -24,6 +24,11 @@ class Tweet:
         - self.id > 0
         - self.sentiment.keys() == ['neg', 'neu', 'pos', 'compound']
         - all(0.0 <= i <= 1.0 for i in self.sentiment.values())
+
+    Sample Usage:
+    >>> some_tweet = Tweet(opinion=0, content='David is cool!')
+    >>> some_tweet.sentiment is None
+    True
     """
     opinion: int
     content: str
