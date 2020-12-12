@@ -1,5 +1,5 @@
 """All code for doing statistical analysis on tweets."""
-from data_formatting import Tweet, sort_tweets
+from data_formatting import Tweet
 from typing import List, Dict, Tuple
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
@@ -113,12 +113,11 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     plt.scatter(x_values, y_values, s=2, marker="o")
     plt.show()
     
-def plot_compound(tweets: List[Tweet]) -> None:
+def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     """Plots each tweet as a point where the x-coordinate is the compound value
     and the y-coordinate is fixed for each tweet type 
     (-1 for 'does not support', 0 for 'neutral', 1 for 'supports' and 2 for 'news')
     """
-    sorted_tweets = sort_tweets(tweets)
     not_support = [tweet.vader['compound'] for tweet in sorted_tweets[-1]]
     neutral = [tweet.vader['compound'] for tweet in sorted_tweets[0]]
     support = [tweet.vader['compound'] for tweet in sorted_tweets[1]]
