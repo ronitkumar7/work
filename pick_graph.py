@@ -39,6 +39,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
 
     pygame.display.set_caption('Pick a Graph')
 
+    # Create text
     font1 = pygame.font.Font('freesansbold.ttf', 36)
     title = font1.render('Welcome to our sentiment analysis!', True, black)
     title_rect = title.get_rect()
@@ -65,15 +66,18 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     text5_rect = text5.get_rect()
     text5_rect.center = (3 * width // 4, 375)
 
-    but_text = font2.render('Click me!', True, white)
-    but_text_rect = but_text.get_rect()
+    but_text1 = font2.render('Frequency Histogram', True, white)
+    but_text1_rect = but_text1.get_rect()
+
+    but_text2 = font2.render('Pos-Neg Graph', True, white)
+    but_text2_rect = but_text2.get_rect()
 
     def mouse_in(x_pos: int, y_pos: int) -> bool:
         """
-        Check if the position of the mouse is inside a 200 by 100 rectangle
+        Check if the position of the mouse is inside a 200 by 50 rectangle
         with starting coordinates x_pos and y_pos
         """
-        return x_pos < mouse[0] < x_pos + 200 and y_pos < mouse[1] < y_pos + 100
+        return x_pos < mouse[0] < x_pos + 200 and y_pos < mouse[1] < y_pos + 50
 
     running = True
 
@@ -82,18 +86,28 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
             if ev.type == pygame.QUIT:
                 running = False
 
+            # Add button functionality
             if ev.type == pygame.MOUSEBUTTONDOWN:
-                if mouse_in(width // 8, 225):
+                if mouse_in(width // 8, 200):
                     stats_analysis.normal_histogram(neg_tweets)
-                elif mouse_in(5 * width // 8, 225):
+                elif mouse_in(width // 8, 250):
+                    stats_analysis.plot_pos_neg(neg_tweets)
+                elif mouse_in(5 * width // 8, 200):
                     stats_analysis.normal_histogram(pos_tweets)
-                elif mouse_in(width // 8, 425):
+                elif mouse_in(5 * width // 8, 250):
+                    stats_analysis.plot_pos_neg(pos_tweets)
+                elif mouse_in(width // 8, 400):
                     stats_analysis.normal_histogram(neut_tweets)
-                elif mouse_in(5 * width // 8, 425):
+                elif mouse_in(width // 8, 450):
+                    stats_analysis.plot_pos_neg(neut_tweets)
+                elif mouse_in(5 * width // 8, 400):
                     stats_analysis.normal_histogram(news_tweets)
+                elif mouse_in(5 * width // 8, 450):
+                    stats_analysis.plot_pos_neg(news_tweets)
 
         screen.fill(white)
 
+        # Add text to screen
         screen.blit(title, title_rect)
         screen.blit(text1, text1_rect)
         screen.blit(text2, text2_rect)
@@ -103,30 +117,70 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
 
         mouse = pygame.mouse.get_pos()
 
-        if mouse_in(width // 8, 225):
-            pygame.draw.rect(screen, red, (width // 8, 225, 200, 100))
-            but_text_rect.center = (width // 4, 275)
-            screen.blit(but_text, but_text_rect)
+        # Add buttons to screen
+        # Histogram for negative tweets
+        if mouse_in(width // 8, 200):
+            pygame.draw.rect(screen, dark_red, (width // 8, 200, 200, 50))
+            but_text1_rect.center = (width // 4, 225)
+            screen.blit(but_text1, but_text1_rect)
         else:
-            pygame.draw.rect(screen, dark_red, (width // 8, 225, 200, 100))
-        if mouse_in(5 * width // 8, 225):
-            pygame.draw.rect(screen, green, (5 * width // 8, 225, 200, 100))
-            but_text_rect.center = (3 * width // 4, 275)
-            screen.blit(but_text, but_text_rect)
+            pygame.draw.rect(screen, red, (width // 8, 200, 200, 50))
+
+        # Positive negative plot for negative tweets
+        if mouse_in(width // 8, 250):
+            pygame.draw.rect(screen, dark_red, (width // 8, 250, 200, 50))
+            but_text2_rect.center = (width // 4, 275)
+            screen.blit(but_text2, but_text2_rect)
         else:
-            pygame.draw.rect(screen, dark_green, (5 * width // 8, 225, 200, 100))
-        if mouse_in(width // 8, 425):
-            pygame.draw.rect(screen, blue, (width // 8, 425, 200, 100))
-            but_text_rect.center = (width // 4, 475)
-            screen.blit(but_text, but_text_rect)
+            pygame.draw.rect(screen, red, (width // 8, 250, 200, 50))
+
+        # Histogram for positive tweets
+        if mouse_in(5 * width // 8, 200):
+            pygame.draw.rect(screen, dark_green, (5 * width // 8, 200, 200, 50))
+            but_text1_rect.center = (3 * width // 4, 225)
+            screen.blit(but_text1, but_text1_rect)
         else:
-            pygame.draw.rect(screen, dark_blue, (width // 8, 425, 200, 100))
-        if mouse_in(5 * width // 8, 425):
-            pygame.draw.rect(screen, yellow, (5 * width // 8, 425, 200, 100))
-            but_text_rect.center = (3 * width // 4, 475)
-            screen.blit(but_text, but_text_rect)
+            pygame.draw.rect(screen, green, (5 * width // 8, 200, 200, 50))
+
+        # Positive negative plot for positive tweets
+        if mouse_in(5 * width // 8, 250):
+            pygame.draw.rect(screen, dark_green, (5 * width // 8, 250, 200, 50))
+            but_text2_rect.center = (3 * width // 4, 275)
+            screen.blit(but_text2, but_text2_rect)
         else:
-            pygame.draw.rect(screen, dark_yellow, (5 * width // 8, 425, 200, 100))
+            pygame.draw.rect(screen, green, (5 * width // 8, 250, 200, 50))
+
+        # Histogram for neutral tweets
+        if mouse_in(width // 8, 400):
+            pygame.draw.rect(screen, dark_blue, (width // 8, 400, 200, 50))
+            but_text1_rect.center = (width // 4, 425)
+            screen.blit(but_text1, but_text1_rect)
+        else:
+            pygame.draw.rect(screen, blue, (width // 8, 400, 200, 50))
+
+        # Positive negative plot for neutral tweets
+        if mouse_in(width // 8, 450):
+            pygame.draw.rect(screen, dark_blue, (width // 8, 450, 200, 50))
+            but_text2_rect.center = (width // 4, 475)
+            screen.blit(but_text2, but_text2_rect)
+        else:
+            pygame.draw.rect(screen, blue, (width // 8, 450, 200, 50))
+
+        # Histogram for news related tweets
+        if mouse_in(5 * width // 8, 400):
+            pygame.draw.rect(screen, dark_yellow, (5 * width // 8, 400, 200, 50))
+            but_text1_rect.center = (3 * width // 4, 425)
+            screen.blit(but_text1, but_text1_rect)
+        else:
+            pygame.draw.rect(screen, yellow, (5 * width // 8, 400, 200, 50))
+
+        # Positive negative plot for news related tweets
+        if mouse_in(5 * width // 8, 450):
+            pygame.draw.rect(screen, dark_yellow, (5 * width // 8, 450, 200, 50))
+            but_text2_rect.center = (3 * width // 4, 475)
+            screen.blit(but_text2, but_text2_rect)
+        else:
+            pygame.draw.rect(screen, yellow, (5 * width // 8, 450, 200, 50))
 
         pygame.display.update()
 
