@@ -25,7 +25,8 @@ def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]
     """Return the frequency of positive, negative and neutral tweets in the
     dictionary of sorted tweets provided. The frequency of the three types of
     values are calculated for each opinion in the dictionary provided. The function
-    returns a dictionary that
+    returns a dictionary that maps each opinion to a dictionary that maps each type
+    of tweet (pos, neu, neg) to its frequency.
 
     Precondition:
         - sorted_tweets.keys() == [-1, 0, 1, 2]
@@ -37,10 +38,13 @@ def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]
         freq_neu = 0
         for tweet in sorted_tweets[key]:
             if tweet.sentiment['compound'] < -0.05:
+                # a negative string according to vaderSentiment
                 freq_neg += 1
             elif tweet.sentiment['compound'] > 0.05:
+                # a positive string according to vaderSentiment
                 freq_pos += 1
             else:
+                # a neutral string according to vaderSentiment
                 freq_neu += 1
         freq_dict[key] = {'pos': freq_pos, 'neu': freq_neu, 'neg': freq_neg}
     return freq_dict
@@ -54,7 +58,7 @@ def compare_frequency_vader(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     y_pos = [freq_dict[x]['pos'] for x in [-1, 0, 1, 2]]
     y_neu = [freq_dict[x]['neu'] for x in [-1, 0, 1, 2]]
     y_neg = [freq_dict[x]['neg'] for x in [-1, 0, 1, 2]]
-    opinion = ['does not support', 'neutral', 'support', 'news']
+    opinion = ['does not support', 'neutral', 'support', 'news']  # x-axis labels
     fig = go.Figure(data=[
         go.Bar(name='Positive', x=opinion, y=y_pos),
         go.Bar(name='Neutral', x=opinion, y=y_neu),
