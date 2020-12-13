@@ -79,8 +79,11 @@ def normal_histogram(tweets: List[Tweet]) -> None:
     Precondition:
         - all(t.vader is not None for t in tweets)
     """
+    # Retrieves the compound scores of each tweet
     compound_values = [tweet.sentiment['compound'] for tweet in tweets]
+    # Compute the summary statistics of the compound values
     summary_data = summary(compound_values)
+    # Store the summary statistics of the compound values in text form to add as annotation
     lines = [
         'Mean :' + str(summary_data['mean']),
         'Median :' + str(summary_data['median']),
@@ -89,7 +92,7 @@ def normal_histogram(tweets: List[Tweet]) -> None:
     ]
 
     text = '<br>'.join(lines)  # HTML '<br>' sequence gives newlines
-
+    # Adds the annotation that displays the summary statistics in a box below the graph.
     layout = go.Layout(
         height=800,
         width=800,
@@ -109,8 +112,10 @@ def normal_histogram(tweets: List[Tweet]) -> None:
                 y=0.4
             )
         ])
+    # Creates the figure object that draws the histogram and takes in the annotation created above
     fig = go.Figure(data=[go.Histogram(x=compound_values, histnorm='probability')], layout=layout)
     fig.update_traces(xbins_size=0.01, selector=dict(type='histogram'))
+    # Shows the figure object
     fig.show()
 
 
