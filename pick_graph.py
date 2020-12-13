@@ -16,7 +16,7 @@ from data_formatting import Tweet
 def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     """Run the pygame"""
 
-    #Statistical analysis: sort tweets into respective opinion values
+    # Statistical analysis: sort tweets into respective opinion values
     neg_tweets = tweets[-1]
     add_vader_to_tweets(neg_tweets)
     neut_tweets = tweets[0]
@@ -27,14 +27,14 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     add_vader_to_tweets(news_tweets)
 
     pygame.init()
-    
-    #dimensions of the screen
+
+    # dimensions of the screen
     width = 800
     height = 600
 
     screen = pygame.display.set_mode((width, height))
 
-    #colour tuples
+    # colour tuples
     white = (255, 255, 255)
     black = (0, 0, 0)
     red = (255, 0, 0)
@@ -115,7 +115,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
 
     running = True
 
-    #game loop
+    # game loop
     while running:
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -242,7 +242,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
 
         pygame.display.update()
 
-    #exit pygame
+    # exit pygame
     pygame.quit()
     quit()
 
