@@ -22,11 +22,11 @@ def min_max_values(data: List[float]) -> Tuple[float, float]:
 
 
 def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]]:
-    """Return the frequency of positive, negative and neutral tweets in the
+    """Return the percentage of positive, negative and neutral tweets in the
     dictionary of sorted tweets provided. The frequency of the three types of
     values are calculated for each opinion in the dictionary provided. The function
     returns a dictionary that maps each opinion to a dictionary that maps each type
-    of tweet (pos, neu, neg) to its frequency.
+    of tweet (pos, neu, neg) to the percentage of its frequency .
 
     Precondition:
         - sorted_tweets.keys() == [-1, 0, 1, 2]
@@ -46,7 +46,10 @@ def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]
             else:
                 # a neutral string according to vaderSentiment
                 freq_neu += 1
-        freq_dict[key] = {'pos': freq_pos, 'neu': freq_neu, 'neg': freq_neg}
+        percentage_neg = freq_neg / len(sorted_tweets[key])
+        percentage_neu = freq_neu / len(sorted_tweets[key])
+        percentage_pos = freq_pos / len(sorted_tweets[key])
+        freq_dict[key] = {'pos': percentage_pos, 'neu': percentage_neu, 'neg': percentage_neg}
     return freq_dict
 
 
