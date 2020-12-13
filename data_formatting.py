@@ -1,5 +1,9 @@
-"""
-Code to format raw data from .csv file into usable Python objects.
+"""CSC110 Project: Climate Change Sentiment on Twitter: Data Formatting
+
+Module Description:
+====================
+The module contains Tweet dataclass and the function that processes the raw CSV file
+into a list of Tweets. It also contains a function that sorts the list of tweets by opinion value.
 """
 
 from dataclasses import dataclass
