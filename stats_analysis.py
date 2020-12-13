@@ -21,28 +21,48 @@ def min_max_values(data: List[float]) -> Tuple[float, float]:
     return (min(data), max(data))
 
 
-def frequency(tweets: List[Tweet]) -> Dict[str, int]:
+def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]]:
     """Return the frequency of positive, negative and neutral tweets in the
-    list of tweets provided.
+    dictionary of sorted tweets provided. The frequency of the three types of
+    values are calculated for each opinion in the dictionary provided. The function
+    returns a dictionary that
 
     Precondition:
-        - all(t.vader is not None for t in tweets)
+        - sorted_tweets.keys() == [-1, 0, 1, 2]
     """
-    news_neutral_tweets = [t for t in tweets if t.opinion in {0, 2}]
-    range_compound = min_max_values([t.sentiment['compound'] for t in news_neutral_tweets])
-    freq_neg = 0
-    freq_pos = 0
-    freq_neu = 0
+    freq_dict = {-1: {}, 0: {}, 1: {}, 2: {}}
+    for key in sorted_tweets:
+        freq_neg = 0
+        freq_pos = 0
+        freq_neu = 0
+        for tweet in sorted_tweets[key]:
+            if tweet.sentiment['compound'] < -0.05:
+                freq_neg += 1
+            elif tweet.sentiment['compound'] > 0.05:
+                freq_pos += 1
+            else:
+                freq_neu += 1
+        freq_dict[key] = {'pos': freq_pos, 'neu': freq_neu, 'neg': freq_neg}
+    return freq_dict
 
-    for tweet in tweets:
-        if tweet.sentiment['compound'] < range_compound[0]:
-            freq_neg += 1
-        elif tweet.sentiment['compound'] > range_compound[1]:
-            freq_pos += 1
-        elif range_compound[0] <= tweet.sentiment['compound'] <= range_compound[1]:
-            freq_neu += 1
 
-    return {'positive': freq_pos, 'neutral': freq_neu, 'negative': freq_neg}
+def compare_frequency_vader(sorted_tweets: Dict[int, List[Tweet]]) -> None:
+    """Displays a grouped bar chart with the x_values being the four different
+    types of opinions. For each opinion, there are three bars, each representing
+    the frequency of positive, neutral and negative tweets. """
+    freq_dict = frequency(sorted_tweets)
+    y_pos = [freq_dict[x]['pos'] for x in [-1, 0, 1, 2]]
+    y_neu = [freq_dict[x]['neu'] for x in [-1, 0, 1, 2]]
+    y_neg = [freq_dict[x]['neg'] for x in [-1, 0, 1, 2]]
+    opinion = ['does not support', 'neutral', 'support', 'news']
+    fig = go.Figure(data=[
+        go.Bar(name='Positive', x=opinion, y=y_pos),
+        go.Bar(name='Neutral', x=opinion, y=y_neu),
+        go.Bar(name='Negative', x=opinion, y=y_neg)
+    ])
+
+    fig.update_layout(barmode='group')
+    fig.show()
 
 
 def normal_histogram(tweets: List[Tweet]) -> None:
