@@ -28,8 +28,8 @@ class Tweet:
         - -1.0 <= self.sentiment['neg'] <= 1.0
 
     Sample Usage:
-    >>> some_tweet = Tweet(opinion=0, content='David is cool!')
-    >>> some_tweet.sentiment is None
+    >>> example_tweet = Tweet(opinion=0, content='David is cool!')
+    >>> example_tweet.sentiment is None
     True
     """
     opinion: int
@@ -61,7 +61,7 @@ def process(file: str) -> List[Tweet]:
                 while last_row != row[1]:
                     last_row = row[1]
                     row[1] = row[1].encode('cp1252').decode('utf-8')
-            except:
+            except ValueError:
                 pass
             finally:
                 edited_text = row[1].replace('$q$', "'").replace('&amp;', '&')
@@ -84,19 +84,19 @@ def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
     return tweet_dict
 
 
-if __name__ == "__main__":
-    import python_ta
-    import python_ta.contracts
-    import doctest
-
-    python_ta.check_all(config={
-        'extra-imports': ['python_ta.contracts', 'dataclasses', 'csv'],
-        'allowed-io': ['process'],
-        'max-line-length': 100,
-        'disable': ['R1705', 'C0200']
-    })
-
-    python_ta.contracts.DEBUG_CONTRACTS = False
-    python_ta.contracts.check_all_contracts()
-
-    doctest.testmod(verbose=True)
+# if __name__ == "__main__":
+#     import python_ta
+#     import python_ta.contracts
+#     import doctest
+#
+#     python_ta.check_all(config={
+#         'extra-imports': ['python_ta.contracts', 'dataclasses', 'csv'],
+#         'allowed-io': ['process'],
+#         'max-line-length': 100,
+#         'disable': ['R1705', 'C0200']
+#     })
+#
+#     python_ta.contracts.DEBUG_CONTRACTS = False
+#     python_ta.contracts.check_all_contracts()
+#
+#     doctest.testmod(verbose=True)
