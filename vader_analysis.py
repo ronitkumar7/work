@@ -1,10 +1,17 @@
 """
+CSC110 Project: Climate Change Sentiment on Twitter: Vader Analysis
+
+Module Description:
+====================
+The module contains the function that utilizes the vaderSentiment Library to analyse
+the text of the Tweet and assigns the resulting values to the sentiment attribute
+in the Tweet dataclass.
+=====================
 Credit for vaderSentiment:
 Hutto, C.J. & Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for
 Sentiment Analysis of Social Media Text. Eighth International Conference on
 Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 """
-
 from typing import List
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from data_formatting import Tweet
