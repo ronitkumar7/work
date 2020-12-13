@@ -168,10 +168,10 @@ def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     # Creates an empty figure object
     fig = go.Figure()
     # Adds each box plot to the figure object
-    fig.add_trace(go.Box(x=not_support))
-    fig.add_trace(go.Box(x=neutral))
-    fig.add_trace(go.Box(x=support))
-    fig.add_trace(go.Box(x=news))
+    fig.add_trace(go.Box(x=not_support, name='Against Climate Change'))
+    fig.add_trace(go.Box(x=neutral, name='Neutral'))
+    fig.add_trace(go.Box(x=support, name='In Support Of Climate Change'))
+    fig.add_trace(go.Box(x=news, name='News'))
     fig.show()
 
 
