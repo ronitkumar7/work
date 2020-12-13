@@ -77,7 +77,7 @@ def normal_histogram(tweets: List[Tweet]) -> None:
      in tweets.
 
     Precondition:
-        - all(t.vader is not None for t in tweets)
+        - all(t.sentiment is not None for t in tweets)
     """
     # Retrieves the compound scores of each tweet
     compound_values = [tweet.sentiment['compound'] for tweet in tweets]
@@ -143,8 +143,8 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     """Plots each tweet as a point where the x-coordinate is the negative value
     and the y-coordinate is the positive value.
 
-    Preconditions:
-        - all(tweet.vader is not None for tweet in tweets)
+    Precondition:
+        - all(t.sentiment is not None for t in tweets)
     """
     # Retrieves the negative and positive scores for each tweet
     x_values = [tweet.sentiment['neg'] for tweet in tweets]
