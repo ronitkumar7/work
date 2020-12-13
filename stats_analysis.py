@@ -29,7 +29,7 @@ def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]
     of tweet (pos, neu, neg) to the percentage of its frequency .
 
     Precondition:
-        - sorted_tweets.keys() == [-1, 0, 1, 2]
+        - list(sorted_tweets.keys()) == [-1, 0, 1, 2]
     """
     freq_dict = {-1: {}, 0: {}, 1: {}, 2: {}}
     for key in sorted_tweets:
