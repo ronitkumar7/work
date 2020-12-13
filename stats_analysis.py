@@ -37,10 +37,10 @@ def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]
         freq_pos = 0
         freq_neu = 0
         for tweet in sorted_tweets[key]:
-            if tweet.sentiment['compound'] < -0.05:
+            if tweet.sentiment['compound'] <= -0.05:
                 # a negative string according to vaderSentiment
                 freq_neg += 1
-            elif tweet.sentiment['compound'] > 0.05:
+            elif tweet.sentiment['compound'] >= 0.05:
                 # a positive string according to vaderSentiment
                 freq_pos += 1
             else:
