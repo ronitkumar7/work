@@ -29,7 +29,7 @@ class Tweet:
         - 0.0 <= self.sentiment['neg'] <= 1.0
         - 0.0 <= self.sentiment['neu'] <= 1.0
         - 0.0 <= self.sentiment['pos'] <= 1.0
-        - -1.0 <= self.sentiment['neg'] <= 1.0
+        - -1.0 <= self.sentiment['compound'] <= 1.0
 
     Sample Usage:
     >>> example_tweet = Tweet(opinion=0, content='David is cool!')
@@ -75,7 +75,8 @@ def process(file: str) -> List[Tweet]:
 
 
 def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
-    """Returns a dictionary of 4 keys, each key corresponding to a sentiment value.
+    """Returns a dictionary of 4 keys, mapping an opinion value to the subset (list) of 'tweets'
+    which have that opinion value.
 
     Preconditions:
         - tweets != []
