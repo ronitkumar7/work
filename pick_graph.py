@@ -16,6 +16,7 @@ from data_formatting import Tweet
 def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     """Run the pygame"""
 
+    #Statistical analysis: sort tweets into respective opinion values
     neg_tweets = tweets[-1]
     add_vader_to_tweets(neg_tweets)
     neut_tweets = tweets[0]
@@ -26,12 +27,14 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     add_vader_to_tweets(news_tweets)
 
     pygame.init()
-
+    
+    #dimensions of the screen
     width = 800
     height = 600
 
     screen = pygame.display.set_mode((width, height))
 
+    #colour tuples
     white = (255, 255, 255)
     black = (0, 0, 0)
     red = (255, 0, 0)
@@ -74,14 +77,21 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     text5_rect = text5.get_rect()
     text5_rect.center = (3 * width // 4, 375)
 
+    text6 = font2.render('All Tweets', True, black)
+    text6_rect = text6.get_rect()
+    text6_rect.center = (width // 2, 275)
+
     but_text1 = font2.render('Frequency Histogram', True, white)
     but_text1_rect = but_text1.get_rect()
 
     but_text2 = font2.render('Pos-Neg Graph', True, white)
     but_text2_rect = but_text2.get_rect()
 
-    but_text3 = font2.render('Comparison', True, white)
+    but_text3 = font2.render('Opinion', True, white)
     but_text3_rect = but_text3.get_rect()
+
+    but_text4 = font2.render('Sentiment', True, white)
+    but_text4_rect = but_text4.get_rect()
 
     font3 = pygame.font.Font('freesansbold.ttf', 12)
     note_text1 = font3.render('* Frequency histogram plots the distribution '
@@ -105,6 +115,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
 
     running = True
 
+    #game loop
     while running:
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -128,7 +139,9 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
                     stats_analysis.normal_histogram(news_tweets)
                 elif mouse_in(5 * width // 8, 450):
                     stats_analysis.plot_pos_neg(news_tweets)
-                elif mouse_in(3 * width // 8, 325):
+                elif mouse_in(3 * width // 8, 300):
+                    stats_analysis.compare_frequency_vader(tweets)
+                elif mouse_in(3 * width // 8, 350):
                     stats_analysis.plot_compound(tweets)
 
         screen.fill(white)
@@ -140,6 +153,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
         screen.blit(text3, text3_rect)
         screen.blit(text4, text4_rect)
         screen.blit(text5, text5_rect)
+        screen.blit(text6, text6_rect)
         screen.blit(note_text1, note_text1_rect)
         screen.blit(note_text2, note_text2_rect)
 
@@ -210,16 +224,25 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
         else:
             pygame.draw.rect(screen, yellow, (5 * width // 8, 450, 200, 50))
 
-        # Comparison plot for all tweets
-        if mouse_in(3 * width // 8, 325):
-            pygame.draw.rect(screen, dark_purple, (3 * width // 8, 325, 200, 50))
-            but_text3_rect.center = (width // 2, 350)
+        # Total tweets per opinion value
+        if mouse_in(3 * width // 8, 300):
+            pygame.draw.rect(screen, dark_purple, (3 * width // 8, 300, 200, 50))
+            but_text3_rect.center = (width // 2, 325)
             screen.blit(but_text3, but_text3_rect)
         else:
-            pygame.draw.rect(screen, purple, (3 * width // 8, 325, 200, 50))
+            pygame.draw.rect(screen, purple, (3 * width // 8, 300, 200, 50))
+
+        # Comparison plot for all tweets
+        if mouse_in(3 * width // 8, 350):
+            pygame.draw.rect(screen, dark_purple, (3 * width // 8, 350, 200, 50))
+            but_text4_rect.center = (width // 2, 375)
+            screen.blit(but_text4, but_text4_rect)
+        else:
+            pygame.draw.rect(screen, purple, (3 * width // 8, 350, 200, 50))
 
         pygame.display.update()
 
+    #exit pygame
     pygame.quit()
     quit()
 
