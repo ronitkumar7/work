@@ -157,12 +157,14 @@ def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     and the y-coordinate is fixed for each tweet type
     (-1 for 'does not support', 0 for 'neutral', 1 for 'supports' and 2 for 'news')
     """
+    # Retrieves compound values for each list of tweets, which have been sorted by opinion value.
     not_support = [tweet.sentiment['compound'] for tweet in sorted_tweets[-1]]
     neutral = [tweet.sentiment['compound'] for tweet in sorted_tweets[0]]
     support = [tweet.sentiment['compound'] for tweet in sorted_tweets[1]]
     news = [tweet.sentiment['compound'] for tweet in sorted_tweets[2]]
+    # Creates an empty figure object
     fig = go.Figure()
-    # Use x instead of y argument for horizontal plot
+    # Adds each box plot to the figure object
     fig.add_trace(go.Box(x=not_support))
     fig.add_trace(go.Box(x=neutral))
     fig.add_trace(go.Box(x=support))
