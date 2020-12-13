@@ -1,5 +1,11 @@
-"""Run a PyGame that allows the user to pick the graph they want to visualize."""
+"""
+CSC110 Project: Climate Change Sentiment on Twitter: Pick Graph
 
+Module Description:
+====================
+The module contains the function that creates the pygame application, which allows the user
+to pick which of the available graphs summarizing our analysis they want to visualize.
+"""
 from typing import List, Dict
 import pygame
 import stats_analysis
