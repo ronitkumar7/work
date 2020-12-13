@@ -1,4 +1,10 @@
-"""All code for doing statistical analysis on tweets."""
+"""CSC110 Project: Climate Change Sentiment on Twitter: Stats analysis
+
+Module Description:
+====================
+The module contains the functions that perform statistical operations on the data
+and then graph it using plotly.
+"""
 
 from typing import List, Dict, Tuple
 import statistics
