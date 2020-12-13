@@ -15,8 +15,10 @@ if __name__ == "__main__":
     # Data formatting
     FILEPATH = 'twitter_sentiment_data.csv'
 
-    dataset = data_formatting.process(FILEPATH)
+    dataset = data_formatting.process(FILEPATH)  # Processes the data into a list of tweets
     sorted_tweets = data_formatting.sort_tweets(dataset)
+    # Sorts the list into a dictionary where possible opinion values map to tweets with those
+    # opinion values
 
-    # Interactive pygame
+    # Runs the interactive pygame
     pick_graph.run_game(sorted_tweets)
