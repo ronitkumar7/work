@@ -1,5 +1,10 @@
 """
-Driver file for the Climate Change Sentiment on Twitter project.
+CSC110 Project: Climate Change Sentiment on Twitter: Main
+
+Module Description:
+====================
+The module contains the function calls to utilize our other modules to run our pygame application
+and display the comparison of climate change sentiment on Twitter.
 """
 
 import data_formatting
