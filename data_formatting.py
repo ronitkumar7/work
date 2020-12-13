@@ -57,8 +57,9 @@ def process(file: str) -> List[Tweet]:
     """
     tweets_so_far = []
     with open(file, encoding="utf8") as csv_file:
+        # Creates a csv reader to read the csv file
         csv_reader = csv.reader(csv_file, delimiter=',')
-        next(csv_reader)
+        next(csv_reader)  # Skips the header row
         for row in csv_reader:
             try:
                 last_row = ''
@@ -68,9 +69,11 @@ def process(file: str) -> List[Tweet]:
             except ValueError:
                 pass
             finally:
+                # Replaces some formatting characters with the characters they represent.
                 edited_text = row[1].replace('$q$', "'").replace('&amp;', '&')
+                # Creates an instance of the Tweet class with the edited text
                 tweet = Tweet(opinion=int(row[0]), content=edited_text)
-                tweets_so_far.append(tweet)
+                tweets_so_far.append(tweet)  # Appends the tweet to the list
     return tweets_so_far
 
 
@@ -81,10 +84,14 @@ def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
     Preconditions:
         - tweets != []
     """
+    # Initializing the dictionary where opinion values map to a list of tweets
+    # that have the same opinion value as the key
     tweet_dict = {-1: [], 0: [], 1: [], 2: []}
-    for tweet in tweets:
-        for key in tweet_dict:
+    for tweet in tweets:  # Loops through every tweet
+        for key in tweet_dict:  # Loops through every possible opinion value
             if tweet.opinion == key:
+                # If the tweet has the same opinion value as the key,
+                # the tweet is appended to the list the key maps to in the dictionary
                 tweet_dict[key].append(tweet)
     return tweet_dict
 
