@@ -85,6 +85,7 @@ def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
 
     Preconditions:
         - tweets != []
+        - all(t.sentiment is not None for t in tweets)
     """
     # Initializing the dictionary where opinion values map to a list of tweets
     # that have the same opinion value as the key
