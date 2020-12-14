@@ -41,25 +41,6 @@ class Tweet:
     sentiment: Optional[Dict[str, float]] = None
 
 
-def filter_tweet(tweet: Tweet) -> None:
-    """Removes some common parts of a tweet that do not reflect any sentiment and hence
-    will falsely give a neutral value according to vaderSentiment. This will produce
-    a more accurate polarity score.
-    """
-    remove_keyword = {'http', '@', '#', 'RT'}
-    # most common beginnings of words that will be identified falsely as neutral.
-    split_tweet = tweet.content.split()
-    remove_strings = []
-    for string in split_tweet:
-        for keyword in remove_keyword:
-            if string.startswith(keyword):
-                remove_strings.append(string)
-    for string in remove_strings:
-        split_tweet.remove(string)
-    final_tweet = ' '.join(split_tweet)
-    tweet.content = final_tweet
-
-
 def process(file: str) -> List[Tweet]:
     """Access filepath provided and parse each row in the file into an instance of Tweet.
 
@@ -115,6 +96,25 @@ def sort_tweets(tweets: List[Tweet]) -> Dict[int, List[Tweet]]:
                 # the tweet is appended to the list the key maps to in the dictionary
                 tweet_dict[key].append(tweet)
     return tweet_dict
+
+
+def filter_tweet(tweet: Tweet) -> None:
+    """Removes some common parts of a tweet that do not reflect any sentiment and hence
+    will falsely give a neutral value according to vaderSentiment. This will produce
+    a more accurate polarity score.
+    """
+    remove_keyword = {'http', '@', '#', 'RT'}
+    # most common beginnings of words that will be identified falsely as neutral.
+    split_tweet = tweet.content.split()
+    remove_strings = []
+    for string in split_tweet:
+        for keyword in remove_keyword:
+            if string.startswith(keyword):
+                remove_strings.append(string)
+    for string in remove_strings:
+        split_tweet.remove(string)
+    final_tweet = ' '.join(split_tweet)
+    tweet.content = final_tweet
 
 
 if __name__ == "__main__":
