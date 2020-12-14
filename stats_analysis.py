@@ -12,52 +12,12 @@ import plotly.graph_objects as go
 from data_formatting import Tweet
 
 
-def min_max_values(data: List[float]) -> Tuple[float, float]:
-    """Returns the minimum and maximum of a list of numbers in a tuple (min, max).
-
-    Preconditions:
-        - data != []
-    """
-    return (min(data), max(data))
-
-
-def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]]:
-    """Return the percentage of positive, negative and neutral tweets in the
-    dictionary of sorted tweets provided. The frequency of the three types of
-    values are calculated for each opinion in the dictionary provided. The function
-    returns a dictionary that maps each opinion to a dictionary that maps each type
-    of tweet (pos, neu, neg) to the percentage of its frequency .
-
-    Precondition:
-        - list(sorted_tweets.keys()) == [-1, 0, 1, 2]
-    """
-    freq_dict = {-1: {}, 0: {}, 1: {}, 2: {}}
-    for key in sorted_tweets:
-        freq_neg = 0
-        freq_pos = 0
-        freq_neu = 0
-        for tweet in sorted_tweets[key]:
-            if tweet.sentiment['compound'] <= -0.05:
-                # a negative string according to vaderSentiment
-                freq_neg += 1
-            elif tweet.sentiment['compound'] >= 0.05:
-                # a positive string according to vaderSentiment
-                freq_pos += 1
-            else:
-                # a neutral string according to vaderSentiment
-                freq_neu += 1
-        percentage_neg = freq_neg / len(sorted_tweets[key])
-        percentage_neu = freq_neu / len(sorted_tweets[key])
-        percentage_pos = freq_pos / len(sorted_tweets[key])
-        freq_dict[key] = {'pos': percentage_pos, 'neu': percentage_neu, 'neg': percentage_neg}
-    return freq_dict
-
-
 def compare_frequency_vader(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     """Displays a grouped bar chart with the x_values being the four different
     types of opinions. For each opinion, there are three bars, each representing
     the frequency of positive, neutral and negative tweets. """
     freq_dict = frequency(sorted_tweets)
+    # Helper function to calculate percentage of frequency
     y_pos = [freq_dict[x]['pos'] for x in [-1, 0, 1, 2]]
     y_neu = [freq_dict[x]['neu'] for x in [-1, 0, 1, 2]]
     y_neg = [freq_dict[x]['neg'] for x in [-1, 0, 1, 2]]
@@ -68,7 +28,10 @@ def compare_frequency_vader(sorted_tweets: Dict[int, List[Tweet]]) -> None:
         go.Bar(name='Negative', x=opinion, y=y_neg)
     ])
 
-    fig.update_layout(barmode='group')
+    fig.update_layout(barmode='group',
+                      title='Percentage of tweets of different sentiments within each opinion',
+                      yaxis_title='Percentage of tweets',
+                      xaxis_title='Opinion')
     fig.show()
 
 
@@ -173,6 +136,51 @@ def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     fig.add_trace(go.Box(x=support, name='In Support Of Climate Change'))
     fig.add_trace(go.Box(x=news, name='News'))
     fig.show()
+
+
+#############################################################################
+# Helper functions:
+#############################################################################
+
+def min_max_values(data: List[float]) -> Tuple[float, float]:
+    """Returns the minimum and maximum of a list of numbers in a tuple (min, max).
+
+    Preconditions:
+        - data != []
+    """
+    return (min(data), max(data))
+
+
+def frequency(sorted_tweets: Dict[int, List[Tweet]]) -> Dict[int, Dict[str, int]]:
+    """Return the percentage of positive, negative and neutral tweets in the
+    dictionary of sorted tweets provided. The frequency of the three types of
+    values are calculated for each opinion in the dictionary provided. The function
+    returns a dictionary that maps each opinion to a dictionary that maps each type
+    of tweet (pos, neu, neg) to the percentage of its frequency .
+
+    Precondition:
+        - list(sorted_tweets.keys()) == [-1, 0, 1, 2]
+    """
+    freq_dict = {-1: {}, 0: {}, 1: {}, 2: {}}
+    for key in sorted_tweets:
+        freq_neg = 0
+        freq_pos = 0
+        freq_neu = 0
+        for tweet in sorted_tweets[key]:
+            if tweet.sentiment['compound'] <= -0.05:
+                # a negative string according to vaderSentiment
+                freq_neg += 1
+            elif tweet.sentiment['compound'] >= 0.05:
+                # a positive string according to vaderSentiment
+                freq_pos += 1
+            else:
+                # a neutral string according to vaderSentiment
+                freq_neu += 1
+        percentage_neg = freq_neg / len(sorted_tweets[key])
+        percentage_neu = freq_neu / len(sorted_tweets[key])
+        percentage_pos = freq_pos / len(sorted_tweets[key])
+        freq_dict[key] = {'pos': percentage_pos, 'neu': percentage_neu, 'neg': percentage_neg}
+    return freq_dict
 
 
 if __name__ == "__main__":
