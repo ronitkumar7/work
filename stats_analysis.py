@@ -23,9 +23,9 @@ def compare_frequency_vader(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     y_neg = [freq_dict[x]['neg'] for x in [-1, 0, 1, 2]]
     opinion = ['does not support', 'neutral', 'support', 'news']  # x-axis labels
     fig = go.Figure(data=[
-        go.Bar(name='Positive', x=opinion, y=y_pos),
-        go.Bar(name='Neutral', x=opinion, y=y_neu),
-        go.Bar(name='Negative', x=opinion, y=y_neg)
+        go.Bar(name='Positive', x=opinion, y=y_pos, marker={'color': 'green'}),
+        go.Bar(name='Neutral', x=opinion, y=y_neu, marker={'color': 'blue'}),
+        go.Bar(name='Negative', x=opinion, y=y_neg, marker={'color': 'red'})
     ])
 
     fig.update_layout(barmode='group',
