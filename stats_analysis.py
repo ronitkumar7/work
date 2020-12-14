@@ -78,6 +78,9 @@ def normal_histogram(tweets: List[Tweet]) -> None:
     # Creates the figure object that draws the histogram and takes in the annotation created above
     fig = go.Figure(data=[go.Histogram(x=compound_values, histnorm='probability')], layout=layout)
     fig.update_traces(xbins_size=0.01, selector=dict(type='histogram'))
+    fig.update_layout(title='Percentage of frequency of tweets against compound value range',
+                      xaxis_title='Compound value range',
+                      yaxis_title='Percentage of occurrence')
     # Shows the figure object
     fig.show()
 
@@ -115,13 +118,14 @@ def plot_pos_neg(tweets: List[Tweet]) -> None:
     # Creates a figure object that displays a scatter plot with the negative
     # scores on the x-axis, and positive scores on the y-axis
     fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='markers'))
+    fig.update_layout(title='Scatter plot of positive against negative polarity score',
+                      xaxis_title='Negative polarity score',
+                      yaxis_title='Positive polarity score')
     fig.show()
 
 
 def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
-    """Plots each tweet as a point where the x-coordinate is the compound value
-    and the y-coordinate is fixed for each tweet type
-    (-1 for 'does not support', 0 for 'neutral', 1 for 'supports' and 2 for 'news')
+    """Displays a box plot for each opinion.
     """
     # Retrieves compound values for each list of tweets, which have been sorted by opinion value.
     not_support = [tweet.sentiment['compound'] for tweet in sorted_tweets[-1]]
@@ -135,6 +139,9 @@ def plot_compound(sorted_tweets: Dict[int, List[Tweet]]) -> None:
     fig.add_trace(go.Box(x=neutral, name='Neutral'))
     fig.add_trace(go.Box(x=support, name='In Support Of Climate Change'))
     fig.add_trace(go.Box(x=news, name='News'))
+    fig.update_layout(title='Box plot for each opinion',
+                      xaxis_title='Compound value',
+                      yaxis_title='Opinion')
     fig.show()
 
 
