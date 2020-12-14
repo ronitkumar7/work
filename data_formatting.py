@@ -41,6 +41,25 @@ class Tweet:
     sentiment: Optional[Dict[str, float]] = None
 
 
+def filter_tweet(tweet: Tweet) -> None:
+    """Removes some common parts of a tweet that do not reflect any sentiment and hence
+    will falsely give a neutral value according to vaderSentiment. This will produce
+    a more accurate polarity score.
+    """
+    remove_keyword = {'http', '@', '#', 'RT'}
+    # most common beginnings of words that will be identified falsely as neutral.
+    split_tweet = tweet.content.split()
+    remove_strings = []
+    for string in split_tweet:
+        for keyword in remove_keyword:
+            if string.startswith(keyword):
+                remove_strings.append(string)
+    for string in remove_strings:
+        split_tweet.remove(string)
+    final_tweet = ' '.join(split_tweet)
+    tweet.content = final_tweet
+
+
 def process(file: str) -> List[Tweet]:
     """Access filepath provided and parse each row in the file into an instance of Tweet.
 
@@ -74,6 +93,8 @@ def process(file: str) -> List[Tweet]:
                 # Creates an instance of the Tweet class with the edited text
                 tweet = Tweet(opinion=int(row[0]), content=edited_text)
                 tweets_so_far.append(tweet)  # Appends the tweet to the list
+    for tweet in tweets_so_far:
+        filter_tweet(tweet)  # Helper function called to filter tweets
     return tweets_so_far
 
 
