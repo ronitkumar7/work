@@ -61,11 +61,11 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
     text1_rect = text1.get_rect()
     text1_rect.center = (width // 2, 100)
 
-    text2 = font2.render('Negative Tweets', True, black)
+    text2 = font2.render('Not Supporting Tweets', True, black)
     text2_rect = text2.get_rect()
     text2_rect.center = (width // 4, 175)
 
-    text3 = font2.render('Positive Tweets', True, black)
+    text3 = font2.render('Supporting Tweets', True, black)
     text3_rect = text3.get_rect()
     text3_rect.center = (3 * width // 4, 175)
 
@@ -160,7 +160,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
         mouse = pygame.mouse.get_pos()
 
         # Add buttons to screen
-        # Histogram for negative tweets
+        # Histogram for not supporting tweets
         if mouse_in(width // 8, 200):
             pygame.draw.rect(screen, dark_red, (width // 8, 200, 200, 50))
             but_text1_rect.center = (width // 4, 225)
@@ -168,7 +168,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
         else:
             pygame.draw.rect(screen, red, (width // 8, 200, 200, 50))
 
-        # Positive negative plot for negative tweets
+        # Positive negative plot for not supporting tweets
         if mouse_in(width // 8, 250):
             pygame.draw.rect(screen, dark_red, (width // 8, 250, 200, 50))
             but_text2_rect.center = (width // 4, 275)
@@ -176,7 +176,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
         else:
             pygame.draw.rect(screen, red, (width // 8, 250, 200, 50))
 
-        # Histogram for positive tweets
+        # Histogram for supporting tweets
         if mouse_in(5 * width // 8, 200):
             pygame.draw.rect(screen, dark_green, (5 * width // 8, 200, 200, 50))
             but_text1_rect.center = (3 * width // 4, 225)
@@ -184,7 +184,7 @@ def run_game(tweets: Dict[int, List[Tweet]]) -> None:
         else:
             pygame.draw.rect(screen, green, (5 * width // 8, 200, 200, 50))
 
-        # Positive negative plot for positive tweets
+        # Positive negative plot for supporting tweets
         if mouse_in(5 * width // 8, 250):
             pygame.draw.rect(screen, dark_green, (5 * width // 8, 250, 200, 50))
             but_text2_rect.center = (3 * width // 4, 275)
